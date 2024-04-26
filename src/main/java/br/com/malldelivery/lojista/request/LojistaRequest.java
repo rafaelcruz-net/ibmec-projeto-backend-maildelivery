@@ -3,6 +3,7 @@ package br.com.malldelivery.lojista.request;
 
 import br.com.malldelivery.lojista.model.TipoConta;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -11,6 +12,7 @@ public class LojistaRequest {
     private String nome;
 
     @NotBlank(message = "Campo telefone não pode ser vazio")
+    @Pattern(regexp = "^\\([0-9]{2}\\)[0-9]{5}-[0-9]{4}$", message = "Campo telefone não está em um formato valido")
     private String telefone;
 
     @NotBlank(message = "Campo banner não pode ser vazio")
@@ -20,12 +22,15 @@ public class LojistaRequest {
     private int numMaxProduto = 10;
 
     @NotBlank(message = "Campo código do banco não pode ser vazio")
+    @Pattern(regexp = "^[0-9]{3}$", message = "Campo código do banco não está em um formato valido")
     private String codigoBanco;
 
     @NotBlank(message = "Campo agência do banco não pode ser vazio")
+    @Pattern(regexp = "^[0-9]{4}$", message = "Campo agência não está em um formato valido")
     private String agencia;
 
     @NotBlank(message = "Campo conta do banco não pode ser vazio")
+    @Pattern(regexp = "^[0-9]{5}\\-[0-9]{1}$", message = "Campo conta bancária não está em um formato valido")
     private String conta;
 
     @NotBlank(message = "Campo tipo de conta não pode ser vazio")
@@ -47,5 +52,6 @@ public class LojistaRequest {
     private String estado;
 
     @NotBlank(message = "Campo cep não pode ser vazio")
+    @Pattern(regexp = "^[0-9]{5}\\-[0-9]{3}$", message = "Campo agência não está em um formato valido")
     private String cep;
 }
