@@ -54,6 +54,7 @@ public class Loja {
         loja.setBanner(request.getBanner());
         loja.setUrlLoja(request.getUrlLoja());
         loja.setNumMaxProduto(request.getNumMaxProduto());
+        loja.setCnpj(request.getCnpj());
 
         DadoBancario dadoBancario = new DadoBancario();
 
