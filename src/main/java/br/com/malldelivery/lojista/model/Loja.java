@@ -79,6 +79,7 @@ public class Loja {
         endereco.setEstado(request.getEstado());
         endereco.setComplemento(request.getComplemento());
         endereco.setLogradouro(request.getLogradouro());
+
         loja.getEnderecos().add(endereco);
 
         return loja;
