@@ -1,6 +1,7 @@
 package br.com.malldelivery.lojista.errorHandler;
 
 
+import br.com.malldelivery.lojista.exception.LojaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -26,4 +27,18 @@ public class ErrorHandler {
 
         return response;
     }
+
+    @ExceptionHandler(LojaException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseBody
+    public ValidationErrorResponse validationBusinessError(LojaException e) {
+        ValidationErrorResponse response = new ValidationErrorResponse();
+        Validation validation = new Validation();
+        validation.setMessage(e.getMessage());
+        validation.setField(e.getField());
+        response.getValidationsErrors().add(validation);
+        return response;
+    }
+
+
 }

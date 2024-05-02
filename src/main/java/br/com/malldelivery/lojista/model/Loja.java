@@ -1,6 +1,8 @@
 package br.com.malldelivery.lojista.model;
 
+import br.com.malldelivery.lojista.exception.LojaException;
 import br.com.malldelivery.lojista.request.LojistaRequest;
+import br.com.malldelivery.lojista.response.LojistaResponse;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -62,7 +64,7 @@ public class Loja {
         } else if (request.getTipoConta().equals("CI")) {
             dadoBancario.setTipoConta(TipoConta.CONTA_INVESTIMENTO);
         } else {
-            throw new Exception("Tipo de conta invalido");
+            throw new LojaException("tipoConta", "Tipo de conta invalido, valores validos: CC, CI, CP");
         }
 
         dadoBancario.setConta(request.getConta());
@@ -80,5 +82,31 @@ public class Loja {
         loja.getEnderecos().add(endereco);
 
         return loja;
+    }
+
+    public static LojistaResponse toResponse(Loja loja) {
+        LojistaResponse response = new LojistaResponse();
+
+        response.setNome(loja.getNome());
+        response.setTelefone(loja.getTelefone());
+        response.setBanner(loja.getBanner());
+        response.setUrlLoja(loja.getUrlLoja());
+        response.setNumMaxProduto(loja.getNumMaxProduto());
+        response.setId(loja.getId());
+
+        response.setConta(loja.getDadosBancarios().getFirst().getConta());
+        response.setAgencia(loja.getDadosBancarios().getFirst().getConta());
+        response.setCodigoBanco(loja.getDadosBancarios().getFirst().getConta());
+        response.setTipoConta(loja.getDadosBancarios().getFirst().getTipoConta().toString());
+
+        response.setCep(loja.getEnderecos().getFirst().getCep());
+        response.setBairro(loja.getEnderecos().getFirst().getBairro());
+        response.setCidade(loja.getEnderecos().getFirst().getCidade());
+        response.setEstado(loja.getEnderecos().getFirst().getEstado());
+        response.setComplemento(loja.getEnderecos().getFirst().getComplemento());
+        response.setLogradouro(loja.getEnderecos().getFirst().getLogradouro());
+
+        return response;
+
     }
 }

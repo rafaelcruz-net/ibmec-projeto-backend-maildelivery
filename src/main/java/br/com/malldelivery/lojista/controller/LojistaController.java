@@ -2,6 +2,7 @@ package br.com.malldelivery.lojista.controller;
 
 
 import br.com.malldelivery.lojista.request.LojistaRequest;
+import br.com.malldelivery.lojista.response.LojistaResponse;
 import br.com.malldelivery.lojista.service.LojaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class LojistaController {
     private LojaService lojaService;
 
     @PostMapping
-    public ResponseEntity criarLoja(@RequestBody @Valid LojistaRequest request) throws Exception {
-        return new ResponseEntity(lojaService.criarLoja(request), HttpStatus.OK);
+    public ResponseEntity<LojistaRequest> criarLoja(@RequestBody @Valid LojistaRequest request) throws Exception {
+        LojistaResponse response = this.lojaService.criarLoja(request);
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 }
