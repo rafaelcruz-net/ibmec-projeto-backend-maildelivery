@@ -38,6 +38,16 @@ public class Loja {
     @Column
     private int numMaxProduto;
 
+    @Column
+    private Boolean enabled = false;
+
+    @Column
+    private LocalDateTime dtAtivacao;
+
+    @Column
+    private String userNameAtivacao;
+
+
     @OneToMany
     @JoinColumn(name = "id_loja", referencedColumnName = "id")
     private List<DadoBancario> dadosBancarios = new ArrayList<>();
@@ -86,6 +96,43 @@ public class Loja {
         return loja;
     }
 
+    public static Loja fromRequest(Loja loja, LojistaRequest request) throws LojaException {
+
+        loja.setNome(request.getNome());
+        loja.setTelefone(request.getTelefone());
+        loja.setBanner(request.getBanner());
+        loja.setUrlLoja(request.getUrlLoja());
+        loja.setNumMaxProduto(request.getNumMaxProduto());
+        loja.setCnpj(request.getCnpj());
+
+        DadoBancario dadoBancario = loja.dadosBancarios.getFirst();
+
+        if (request.getTipoConta().equals("CC")) {
+            dadoBancario.setTipoConta(TipoConta.CONTA_CORRENTE);
+        } else if (request.getTipoConta().equals("CP")) {
+            dadoBancario.setTipoConta(TipoConta.CONTA_POUPANCA);
+        } else if (request.getTipoConta().equals("CI")) {
+            dadoBancario.setTipoConta(TipoConta.CONTA_INVESTIMENTO);
+        } else {
+            throw new LojaException("tipoConta", "Tipo de conta invalido, valores validos: CC, CI, CP");
+        }
+
+        dadoBancario.setConta(request.getConta());
+        dadoBancario.setAgencia(request.getAgencia());
+        dadoBancario.setCodigoBanco(request.getCodigoBanco());
+
+        Endereco endereco = loja.getEnderecos().getFirst();
+
+        endereco.setCep(request.getCep());
+        endereco.setBairro(request.getBairro());
+        endereco.setCidade(request.getCidade());
+        endereco.setEstado(request.getEstado());
+        endereco.setComplemento(request.getComplemento());
+        endereco.setLogradouro(request.getLogradouro());
+
+        return loja;
+
+    }
     public static LojistaResponse toResponse(Loja loja) {
         LojistaResponse response = new LojistaResponse();
 
@@ -95,6 +142,10 @@ public class Loja {
         response.setUrlLoja(loja.getUrlLoja());
         response.setNumMaxProduto(loja.getNumMaxProduto());
         response.setId(loja.getId());
+        response.setDtCadastro(loja.getDtCadastro());
+        response.setEnabled(loja.getEnabled());
+        response.setDtAtivacao(loja.getDtAtivacao());
+        response.setUserNameAtivacao(loja.getUserNameAtivacao());
 
         response.setConta(loja.getDadosBancarios().getFirst().getConta());
         response.setAgencia(loja.getDadosBancarios().getFirst().getConta());

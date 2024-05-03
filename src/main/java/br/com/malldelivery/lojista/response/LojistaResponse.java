@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class LojistaResponse {
     private int id;
@@ -22,4 +24,8 @@ public class LojistaResponse {
     private String cidade;
     private String estado;
     private String cep;
+    private LocalDateTime dtCadastro;
+    private Boolean enabled;
+    private LocalDateTime dtAtivacao;
+    private String userNameAtivacao;
 }
