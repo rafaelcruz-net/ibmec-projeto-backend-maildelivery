@@ -147,17 +147,21 @@ public class Loja {
         response.setDtAtivacao(loja.getDtAtivacao());
         response.setUserNameAtivacao(loja.getUserNameAtivacao());
 
-        response.setConta(loja.getDadosBancarios().getFirst().getConta());
-        response.setAgencia(loja.getDadosBancarios().getFirst().getConta());
-        response.setCodigoBanco(loja.getDadosBancarios().getFirst().getConta());
-        response.setTipoConta(loja.getDadosBancarios().getFirst().getTipoConta().toString());
+        if (loja.getDadosBancarios().size() > 0) {
+            response.setConta(loja.getDadosBancarios().getFirst().getConta());
+            response.setAgencia(loja.getDadosBancarios().getFirst().getConta());
+            response.setCodigoBanco(loja.getDadosBancarios().getFirst().getConta());
+            response.setTipoConta(loja.getDadosBancarios().getFirst().getTipoConta().toString());
+        }
 
-        response.setCep(loja.getEnderecos().getFirst().getCep());
-        response.setBairro(loja.getEnderecos().getFirst().getBairro());
-        response.setCidade(loja.getEnderecos().getFirst().getCidade());
-        response.setEstado(loja.getEnderecos().getFirst().getEstado());
-        response.setComplemento(loja.getEnderecos().getFirst().getComplemento());
-        response.setLogradouro(loja.getEnderecos().getFirst().getLogradouro());
+        if (loja.getEnderecos().size() > 0) {
+            response.setCep(loja.getEnderecos().getFirst().getCep());
+            response.setBairro(loja.getEnderecos().getFirst().getBairro());
+            response.setCidade(loja.getEnderecos().getFirst().getCidade());
+            response.setEstado(loja.getEnderecos().getFirst().getEstado());
+            response.setComplemento(loja.getEnderecos().getFirst().getComplemento());
+            response.setLogradouro(loja.getEnderecos().getFirst().getLogradouro());
+        }
 
         return response;
 
