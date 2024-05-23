@@ -29,5 +29,5 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn compile --file pom.xml
-    #- name: Tests with Maven
-    # run: mvn test --file pom.xml
+    - name: Tests with Maven
+      run: mvn test --file pom.xml
