@@ -63,7 +63,7 @@ public class LojaServiceTest {
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(response.getNome(), request.getNome());
-        Assertions.assertNotNull(response.getId());
+        Assertions.assertTrue(response.getId() > 0);
         Assertions.assertFalse(response.getEnabled());
         Assertions.assertNotNull(response.getDtCadastro());
 
