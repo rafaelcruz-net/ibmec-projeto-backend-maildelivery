@@ -1,0 +1,1 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rafaelcruz-net_ibmec-projeto-backend-maildelivery&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rafaelcruz-net_ibmec-projeto-backend-maildelivery)
