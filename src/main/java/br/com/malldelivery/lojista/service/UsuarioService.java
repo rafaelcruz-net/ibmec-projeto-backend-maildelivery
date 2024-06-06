@@ -19,11 +19,10 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
     @Autowired
     private PerfilRepository perfilRepository;
 
-    public void criar(String username, String password, int idPerfil) throws LojaException {
+    public Usuario criar(String username, String password, int idPerfil) throws LojaException {
 
         Optional<Perfil> optRole = this.perfilRepository.findById(idPerfil);
 
@@ -33,9 +32,11 @@ public class UsuarioService {
         Usuario usuario = new Usuario();
         usuario.setUsername(username);
         usuario.setPassword(password);
-        usuario.getRoles().add(optRole.get());
+        usuario.getPerfis().add(optRole.get());
 
         this.usuarioRepository.save(usuario);
+
+        return usuario;
     }
 
     public List<Usuario> obterTodos() {

@@ -21,6 +21,5 @@ public class Usuario {
     private String password;
 
     @OneToMany
-    @JoinColumn(name = "id_perfil", referencedColumnName = "id")
-    private List<Perfil> roles = new ArrayList<>();
+    private List<Perfil> perfis = new ArrayList<>();
 }
