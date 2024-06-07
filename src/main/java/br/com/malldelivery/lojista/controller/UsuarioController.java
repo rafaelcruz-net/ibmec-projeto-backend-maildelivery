@@ -43,13 +43,13 @@ public class UsuarioController {
         Usuario usuario = this.usuarioService.obterUsuarioPorUsernameAndPassword(request.getUsername(), request.getPassword());
 
         //Autentica dentro do Spring
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(usuario.getUsername(), usuario.getPassword());
-        Authentication authentication = authenticationManager.authenticate(authenticationToken);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        //UsernamePasswordAuthenticationToken authenticationToken =
+        //        new UsernamePasswordAuthenticationToken(usuario.getUsername(), usuario.getPassword());
+        //Authentication authentication = authenticationManager.authenticate(authenticationToken);
+        //UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         //Cria o token JWT
-        String jwtToken = jwtTokenService.generateToken(userDetails);
+        String jwtToken = jwtTokenService.generateToken(new UserDetailsImpl(usuario));
 
         //Seta o token para a resposta
         TokenResponse response = new TokenResponse();

@@ -20,7 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
     public static final String[] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/usuario/criar",
-            "/usuario/login"
+            "/usuario/login",
+            "/swagger-ui"
     };
 
     public static final String[] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
@@ -40,8 +41,8 @@ public class SecurityConfiguration {
                 .sessionManagement((opt) -> opt.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((opt) -> {
                     opt.requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
-                       .requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated()
-                       .anyRequest().denyAll();
+                       .requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated();
+
                 })
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

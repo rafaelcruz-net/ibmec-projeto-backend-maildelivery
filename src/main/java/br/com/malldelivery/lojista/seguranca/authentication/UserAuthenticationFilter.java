@@ -59,7 +59,13 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean checkIfIsRequired(HttpServletRequest request) {
         String requestUrl = request.getRequestURI();
-        return !Arrays.asList(SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED)
-                .contains(requestUrl);
+
+        boolean isRequired = true;
+        for (String publicUrl:SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED) {
+            if (requestUrl.contains(publicUrl))
+                isRequired = false;
+        }
+
+        return isRequired;
     }
 }
