@@ -45,12 +45,15 @@ public class UsuarioService {
 
     public Usuario obterUsuarioPorId(int id) {
         Optional<Usuario> optUsuario = this.usuarioRepository.findById(id);
-
         if (optUsuario.isEmpty())
             return null;
-
         return optUsuario.get();
-
+    }
+    public Usuario obterUsuarioPorUsernameAndPassword(String username, String password) {
+        Optional<Usuario> optUsuario = this.usuarioRepository.findByUsernameAndPassword(username, password);
+        if (optUsuario.isEmpty())
+            return null;
+        return optUsuario.get();
     }
 
 }
