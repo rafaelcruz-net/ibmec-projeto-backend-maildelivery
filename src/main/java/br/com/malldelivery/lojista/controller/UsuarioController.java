@@ -8,6 +8,7 @@ import br.com.malldelivery.lojista.response.TokenResponse;
 import br.com.malldelivery.lojista.seguranca.authentication.JwtTokenService;
 import br.com.malldelivery.lojista.seguranca.userdetails.UserDetailsImpl;
 import br.com.malldelivery.lojista.service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,12 +43,6 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody @Valid UsuarioRequest request) throws LojaException {
         Usuario usuario = this.usuarioService.obterUsuarioPorUsernameAndPassword(request.getUsername(), request.getPassword());
-
-        //Autentica dentro do Spring
-        //UsernamePasswordAuthenticationToken authenticationToken =
-        //        new UsernamePasswordAuthenticationToken(usuario.getUsername(), usuario.getPassword());
-        //Authentication authentication = authenticationManager.authenticate(authenticationToken);
-        //UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         //Cria o token JWT
         String jwtToken = jwtTokenService.generateToken(new UserDetailsImpl(usuario));

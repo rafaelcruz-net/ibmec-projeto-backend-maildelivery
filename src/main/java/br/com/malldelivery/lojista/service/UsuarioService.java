@@ -50,7 +50,7 @@ public class UsuarioService {
         return optUsuario.get();
     }
     public Usuario obterUsuarioPorUsernameAndPassword(String username, String password) {
-        Optional<Usuario> optUsuario = this.usuarioRepository.findById(1);
+        Optional<Usuario> optUsuario = this.usuarioRepository.findByUsernameAndPassword(username, password);
         if (optUsuario.isEmpty())
             return null;
         return optUsuario.get();

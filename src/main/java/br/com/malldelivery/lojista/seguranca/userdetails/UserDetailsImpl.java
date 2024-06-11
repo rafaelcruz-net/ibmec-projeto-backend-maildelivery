@@ -27,7 +27,7 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
         for (Perfil perfil: this.usuario.getPerfis()) {
-            roles.add(new SimpleGrantedAuthority(perfil.getNome()));
+            roles.add(new SimpleGrantedAuthority(perfil.getNome().toUpperCase()));
         }
         return roles;
     }

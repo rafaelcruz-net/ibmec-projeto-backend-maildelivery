@@ -20,6 +20,6 @@ public class Usuario {
     @Column
     private String password;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
 }

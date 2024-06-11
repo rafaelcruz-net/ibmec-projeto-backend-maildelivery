@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,21 +30,23 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //Verifica se o endpoint requer autenticação
-        if (checkIfIsRequired(request)) {
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
             String token = obterToken(request);
-            if (token == null)
-                throw new RuntimeException("O token está ausente");
 
-            String subject = jwtTokenService.getSubjectFromToken(token);
-            Usuario user = usuarioRepository.findByUsername(subject).get();
-            UserDetailsImpl userDetails = new UserDetailsImpl(user);
+            if (token != null) {
+                String subject = jwtTokenService.getSubjectFromToken(token);
+                Usuario user = usuarioRepository.findByUsername(subject).get();
+                UserDetailsImpl userDetails = new UserDetailsImpl(user);
 
-            //Cria o objeto de autenticação
-            Authentication authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
+                //Cria o objeto de autenticação
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-            //Define o objeto autenticado dentro do Spring
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                //Define o objeto autenticado dentro do Spring
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+
         }
 
         filterChain.doFilter(request, response);
@@ -55,17 +58,5 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
             return token.replace("Bearer ", "");
         }
         return null;
-    }
-
-    private boolean checkIfIsRequired(HttpServletRequest request) {
-        String requestUrl = request.getRequestURI();
-
-        boolean isRequired = true;
-        for (String publicUrl:SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED) {
-            if (requestUrl.contains(publicUrl))
-                isRequired = false;
-        }
-
-        return isRequired;
     }
 }
