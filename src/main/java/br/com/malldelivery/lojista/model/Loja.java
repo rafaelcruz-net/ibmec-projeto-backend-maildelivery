@@ -105,7 +105,7 @@ public class Loja {
         loja.setNumMaxProduto(request.getNumMaxProduto());
         loja.setCnpj(request.getCnpj());
 
-        DadoBancario dadoBancario = loja.dadosBancarios.getFirst();
+        DadoBancario dadoBancario = loja.dadosBancarios.get(0);
 
         if (request.getTipoConta().equals("CC")) {
             dadoBancario.setTipoConta(TipoConta.CONTA_CORRENTE);
@@ -121,7 +121,7 @@ public class Loja {
         dadoBancario.setAgencia(request.getAgencia());
         dadoBancario.setCodigoBanco(request.getCodigoBanco());
 
-        Endereco endereco = loja.getEnderecos().getFirst();
+        Endereco endereco = loja.getEnderecos().get(0);
 
         endereco.setCep(request.getCep());
         endereco.setBairro(request.getBairro());
@@ -148,19 +148,19 @@ public class Loja {
         response.setUserNameAtivacao(loja.getUserNameAtivacao());
 
         if (loja.getDadosBancarios().size() > 0) {
-            response.setConta(loja.getDadosBancarios().getFirst().getConta());
-            response.setAgencia(loja.getDadosBancarios().getFirst().getConta());
-            response.setCodigoBanco(loja.getDadosBancarios().getFirst().getConta());
-            response.setTipoConta(loja.getDadosBancarios().getFirst().getTipoConta().toString());
+            response.setConta(loja.getDadosBancarios().get(0).getConta());
+            response.setAgencia(loja.getDadosBancarios().get(0).getConta());
+            response.setCodigoBanco(loja.getDadosBancarios().get(0).getConta());
+            response.setTipoConta(loja.getDadosBancarios().get(0).getTipoConta().toString());
         }
 
         if (loja.getEnderecos().size() > 0) {
-            response.setCep(loja.getEnderecos().getFirst().getCep());
-            response.setBairro(loja.getEnderecos().getFirst().getBairro());
-            response.setCidade(loja.getEnderecos().getFirst().getCidade());
-            response.setEstado(loja.getEnderecos().getFirst().getEstado());
-            response.setComplemento(loja.getEnderecos().getFirst().getComplemento());
-            response.setLogradouro(loja.getEnderecos().getFirst().getLogradouro());
+            response.setCep(loja.getEnderecos().get(0).getCep());
+            response.setBairro(loja.getEnderecos().get(0).getBairro());
+            response.setCidade(loja.getEnderecos().get(0).getCidade());
+            response.setEstado(loja.getEnderecos().get(0).getEstado());
+            response.setComplemento(loja.getEnderecos().get(0).getComplemento());
+            response.setLogradouro(loja.getEnderecos().get(0).getLogradouro());
         }
 
         return response;

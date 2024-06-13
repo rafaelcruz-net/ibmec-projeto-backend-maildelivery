@@ -35,11 +35,11 @@ public class LojaService {
         }
 
         //Salva o endereço no banco de dados
-        Endereco endereco = loja.getEnderecos().getFirst();
+        Endereco endereco = loja.getEnderecos().get(0);
         this.enderecoRepository.save(endereco);
 
         //Salva o dado bancario no banco de dados
-        DadoBancario dadoBancario = loja.getDadosBancarios().getFirst();
+        DadoBancario dadoBancario = loja.getDadosBancarios().get(0);
         this.dadoBancarioRepository.save(dadoBancario);
 
         //Adicionando a data de cadastro
@@ -106,11 +106,11 @@ public class LojaService {
         Loja loja = Loja.fromRequest(optLoja.get(), request);
 
         //Atualiza o endereço no banco de dados
-        Endereco endereco = loja.getEnderecos().getFirst();
+        Endereco endereco = loja.getEnderecos().get(0);
         this.enderecoRepository.save(endereco);
 
         //Atualiza o dado bancario no banco de dados
-        DadoBancario dadoBancario = loja.getDadosBancarios().getFirst();
+        DadoBancario dadoBancario = loja.getDadosBancarios().get(0);
         this.dadoBancarioRepository.save(dadoBancario);
 
         //Atualiza o dado da loja
