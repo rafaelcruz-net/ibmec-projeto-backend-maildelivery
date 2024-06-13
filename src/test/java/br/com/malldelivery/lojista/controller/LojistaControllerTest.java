@@ -10,8 +10,6 @@ import br.com.malldelivery.lojista.seguranca.authentication.UserAuthenticationFi
 import br.com.malldelivery.lojista.service.LojaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.Filter;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
