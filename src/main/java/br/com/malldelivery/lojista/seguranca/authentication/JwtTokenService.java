@@ -13,12 +13,11 @@ import java.time.ZonedDateTime;
 
 @Service
 public class JwtTokenService {
-    private static final String SECRET_KEY = "1234567899876543210ab";
     private static final String ISSUER = "mall-delivery-api";
 
     public String generateToken(UserDetailsImpl user) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
+            Algorithm algorithm = Algorithm.HMAC256("12345678");
             return JWT.create()
                     .withIssuer(ISSUER)
                     .withIssuedAt(creationDate())
@@ -33,7 +32,7 @@ public class JwtTokenService {
 
     public String getSubjectFromToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
+            Algorithm algorithm = Algorithm.HMAC256("12345678");
             return JWT.require(algorithm)
                       .withIssuer(ISSUER)
                       .build()
