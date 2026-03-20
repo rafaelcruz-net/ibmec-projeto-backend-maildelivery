@@ -17,7 +17,7 @@ public class JwtTokenService {
 
     public String generateToken(UserDetailsImpl user) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256("12345678");
+            Algorithm algorithm = Algorithm.HMAC256("123456789");
             return JWT.create()
                     .withIssuer(ISSUER)
                     .withIssuedAt(creationDate())
@@ -32,7 +32,7 @@ public class JwtTokenService {
 
     public String getSubjectFromToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256("12345678");
+            Algorithm algorithm = Algorithm.HMAC256("123456789");
             return JWT.require(algorithm)
                       .withIssuer(ISSUER)
                       .build()
